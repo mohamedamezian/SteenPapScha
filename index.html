@@ -15,24 +15,57 @@
   <body>
     <main class="app">
       <h1 class="title">Gesture detection (Rock / Paper / Scissors)</h1>
-
-      <section class="layout" aria-label="Gesture detection layout">
-        <div class="stage" aria-label="Camera canvas">
-          <video class="input_video" playsinline></video>
-          <canvas class="output_canvas"></canvas>
-        </div>
-
-          <button id="toggleCamera" class="btn">Start camera</button>
-
-          <div class="box">
-            <div class="label">Detected</div>
-            <div id="gesture" class="gesture">—</div>
+        <section class="layout" aria-label="Gesture detection layout">
+          <div class="stage" aria-label="Camera canvas">
+            <video class="input_video" playsinline></video>
+            <canvas class="output_canvas"></canvas>
+            <div id="countdown" class="countdown"></div>
           </div>
 
-          <div id="status" class="status">Click “Start camera”, then show a hand pose.</div>
-      </section>
-    </main>
+          <aside class="side">
+            <button id="toggleCamera" class="btn">Start camera</button>
+            <button id="playRound" class="btn primary" disabled>Play round</button>
+            <button id="resetScore" class="btn">Reset score</button>
 
+            <div class="box">
+              <div class="label">Live detected</div>
+              <div id="gesture" class="gesture">—</div>
+            </div>
+
+            <div class="box">
+              <div class="label">Your move</div>
+              <div id="playerMove" class="move">—</div>
+            </div>
+
+            <div class="box">
+              <div class="label">Computer move</div>
+              <div id="computerMove" class="move">—</div>
+            </div>
+
+            <div class="box result-box">
+              <div class="label">Result</div>
+              <div id="result" class="result">Start a round</div>
+            </div>
+
+            <div class="score">
+              <div>You: <strong id="playerScore">0</strong></div>
+              <div>Computer: <strong id="computerScore">0</strong></div>
+              <div>Draws: <strong id="drawScore">0</strong></div>
+            </div>
+
+            <div id="status" class="status">Click “Start camera”, then show a hand pose.</div>
+
+            <div class="tips">
+              <strong>Gestures</strong>
+              <ul>
+                <li>Rock = fist</li>
+                <li>Paper = open hand</li>
+                <li>Scissors = index and middle finger up</li>
+              </ul>
+            </div>
+          </aside>
+        </section>
+    </main>
     <script src="main.js"></script>
   </body>
 </html>

@@ -3,15 +3,17 @@
 body {
   margin: 16px;
   font-family: Arial, sans-serif;
+  background: #f6f7fb;
+  color: #111827;
 }
 
 .app {
-  max-width: 1000px;
+  max-width: 1100px;
 }
 
 .title {
   margin: 0 0 12px;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .layout {
@@ -26,6 +28,9 @@ body {
   width: min(720px, 100%);
   aspect-ratio: 16 / 9;
   border: 1px solid #ccc;
+  background: #000;
+  overflow: hidden;
+  border-radius: 14px;
 }
 
 .input_video {
@@ -45,26 +50,93 @@ body {
   height: 100%;
 }
 
+.countdown {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(40px, 8vw, 88px);
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+
 .side {
-  min-width: 240px;
+  min-width: 260px;
+  max-width: 340px;
 }
 
 .btn {
-  padding: 8px 10px;
+  padding: 9px 12px;
+  margin: 0 6px 8px 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.box {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: white;
+}
+
+.result-box {
+  border-color: #2563eb;
 }
 
 .label {
   font-size: 12px;
-  margin-top: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
 }
 
-.gesture {
+.gesture,
+.move {
   font-size: 24px;
   font-weight: bold;
 }
 
+.result {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.35;
+}
+
+.score {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  display: grid;
+  gap: 8px;
+}
+
 .status {
   margin-top: 12px;
+  line-height: 1.4;
+}
+
+.tips {
+  margin-top: 12px;
+  font-size: 14px;
 }
 
 .tips ul {
