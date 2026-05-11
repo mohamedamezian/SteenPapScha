@@ -1,5 +1,3 @@
-/* global Hands, Camera, drawConnectors, drawLandmarks, HAND_CONNECTIONS */
-
 const els = {
   toggleCamera: document.getElementById('toggleCamera'),
   playRound: document.getElementById('playRound'),
@@ -81,18 +79,19 @@ function classifyRps(landmarks, handednessLabel) {
   if (indexUp && middleUp && ringUp && pinkyUp) return 'PAPER';
   if (indexUp && middleUp && !ringUp && !pinkyUp) return 'SCISSORS';
 
-  // Thumb detection is sometimes noisy, so paper is mainly based on four fingers.
   if (indexUp && middleUp && ringUp && pinkyUp && !thumbUp) return 'PAPER';
 
   return null;
 }
 
+// Geeft een willekeurige keuze terug voor de computer
 function getComputerMove() {
   const moves = ['ROCK', 'PAPER', 'SCISSORS'];
   const randomIndex = Math.floor(Math.random() * moves.length);
   return moves[randomIndex];
 }
 
+// Bepaalt wie de ronde wint
 function getWinner(playerMove, computerMove) {
   if (!playerMove) return 'UNKNOWN';
   if (playerMove === computerMove) return 'DRAW';
@@ -105,6 +104,7 @@ function getWinner(playerMove, computerMove) {
   return playerWins ? 'PLAYER' : 'COMPUTER';
 }
 
+// Geeft een nette tekst terug voor de uitslag
 function explainResult(playerMove, computerMove, winner) {
   if (winner === 'UNKNOWN') {
     return 'Gesture not clear. Try again with a clear rock, paper, or scissors pose.';
@@ -124,6 +124,7 @@ function explainResult(playerMove, computerMove, winner) {
   return `Computer wins! ${losingText}.`;
 }
 
+// Werkt de score bij na elke ronde
 function updateScore(winner) {
   if (winner === 'PLAYER') score.player += 1;
   if (winner === 'COMPUTER') score.computer += 1;
@@ -134,6 +135,7 @@ function updateScore(winner) {
   els.drawScore.textContent = score.draw;
 }
 
+// Toont de uitslag van een gespeelde ronde
 function showRoundResult(playerMove, computerMove, winner) {
   els.playerMove.textContent = playerMove ? moveLabels[playerMove] : '—';
   els.computerMove.textContent = moveLabels[computerMove];
