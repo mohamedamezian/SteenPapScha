@@ -6,10 +6,13 @@
     <title>MediaPipe Gesture (RPS)</title>
     <link rel="stylesheet" href="styles.css" />
 
-    <!-- MediaPipe Hands (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+            <!-- MediaPipe Tasks Vision (CDN)
+              We gebruiken de moderne "HandLandmarker" aanpak uit de officiële guide:
+              https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker/web_js
+
+              Let op: main.js is een ES module (type="module"), zodat we vanuit JS
+              kunnen importeren uit `vision_bundle.mjs`.
+            -->
   </head>
 
   <body>
@@ -66,6 +69,6 @@
           </aside>
         </section>
     </main>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
