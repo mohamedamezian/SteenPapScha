@@ -26,6 +26,7 @@ const els = {
   gesture: document.getElementById('gesture'),
   playerMove: document.getElementById('playerMove'),
   computerMove: document.getElementById('computerMove'),
+  computerHistory: document.getElementById('computerHistory'),
   result: document.getElementById('result'),
   countdown: document.getElementById('countdown'),
 
@@ -59,6 +60,11 @@ let running = false;
 let roundBusy = false;
 let latestMove = null;
 
+// Kleine “geschiedenis” van computer-keuzes zodat de speler kan nadenken.
+const COMPUTER_HISTORY_LIMIT = 8;
+/** @type {string[]} */
+let computerMoveHistory = [];
+
 // Model URL (officiële MediaPipe-hosted model bundle)
 const MODEL_URL =
   'https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task';
@@ -77,6 +83,23 @@ const moveLabels = {
 
 function setStatus(text) {
   els.status.textContent = text;
+}
+
+function renderComputerHistory() {
+  if (!els.computerHistory) return;
+  if (computerMoveHistory.length === 0) {
+    els.computerHistory.textContent = '—';
+    return;
+  }
+
+  // Toon nieuwste eerst.
+  const formatted = computerMoveHistory
+    .slice()
+    .reverse()
+    .map((m) => moveLabels[m] ?? m)
+    .join(' • ');
+
+  els.computerHistory.textContent = formatted;
 }
 
 function resizeCanvasToVideo(results) {
@@ -178,6 +201,12 @@ function showRoundResult(playerMove, computerMove, winner) {
   els.computerMove.textContent = moveLabels[computerMove];
   els.result.textContent = explainResult(playerMove, computerMove, winner);
 
+  computerMoveHistory.push(computerMove);
+  if (computerMoveHistory.length > COMPUTER_HISTORY_LIMIT) {
+    computerMoveHistory = computerMoveHistory.slice(-COMPUTER_HISTORY_LIMIT);
+  }
+  renderComputerHistory();
+
   if (winner !== 'UNKNOWN') {
     updateScore(winner);
   }
@@ -194,7 +223,8 @@ async function playRound() {
   els.playRound.disabled = true;
   els.result.textContent = 'Get ready...';
   els.playerMove.textContent = '—';
-  els.computerMove.textContent = '—';
+  // Let op: we laten de laatste computer-keuze staan,
+  // zodat je tijdens de countdown nog “history” ziet.
 
   const countdownWords = ['Rock', 'Paper', 'Scissors', 'Go!'];
 
@@ -219,6 +249,9 @@ function resetScore() {
   score.player = 0;
   score.computer = 0;
   score.draw = 0;
+
+  computerMoveHistory = [];
+  renderComputerHistory();
 
   els.playerScore.textContent = '0';
   els.computerScore.textContent = '0';
